@@ -4,3 +4,4 @@
 - name: Install Galaxy General collection
   ansible.builtin.shell: ansible-galaxy collection install community.general
   when: APP_TYPE == "nodejs"
+  become_user: roboshop
