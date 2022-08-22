@@ -1,7 +1,3 @@
-- name: import common role
-  ansible.builtin.import_role:
-    name: common
-
 - name: Install nginx
   ansible.builtin.yum:
     name: nginx
