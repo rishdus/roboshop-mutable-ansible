@@ -14,6 +14,12 @@
     state: restarted
     enabled: yes
 
+- name: Load MYSQL log file
+  ansible.builtin.slurp:
+    src: /var/log/mysqld/log
+  register: mysql_log
 
-
+- name: print
+  debug:
+    msg: "{{mysql_log['content] | b64decode | regex_findall('.*temporary password.*) }}"
 
