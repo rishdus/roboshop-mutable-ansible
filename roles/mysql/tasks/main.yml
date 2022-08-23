@@ -30,3 +30,8 @@
     login_user: root
     login_password: "{{MYSQL_PASSWORD}}"
     filter: version
+  register: mysql_conn_stat
+
+- name: print
+  debug:
+    msg: "{{mysql_conn_stat}}"
