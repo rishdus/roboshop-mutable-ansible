@@ -1,32 +1,32 @@
-- name: Copy Mongodb repo file
+- name: Copy MongoDB repo file
   ansible.builtin.copy:
     src: mongodb.repo
     dest: /etc/yum.repos.d/mongodb.repo
 
-- name: Install Mongodb server
+- name: Install MongoDB Server
   ansible.builtin.yum:
     name: mongodb-org
     state: installed
 
-- name: update mongodb listen address
+- name: Update MongoDB Listen Address
   ansible.builtin.replace:
     path: /etc/mongod.conf
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
 
-- name: Restart mongodb
+- name: Restart MongoDB
   ansible.builtin.systemd:
     name: mongod
     state: restarted
     enabled: yes
 
-- name: Download MongoDB
+- name: Download MongoDB Schema files
   ansible.builtin.unarchive:
     src: "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
     dest: /tmp
     remote_src: yes
 
-- name: load schema
+- name: Load Schema
   community.mongodb.mongodb_shell:
     file: "/tmp/mongodb-main/{{item}}.js"
     idempotent: yes
