@@ -1,4 +1,4 @@
-- name: Copy Mysql repo file
+- name: Copy MySQL repo file
   ansible.builtin.copy:
     src: mysql.repo
     dest: /etc/yum.repos.d/mysql.repo
@@ -6,37 +6,37 @@
 - name: Install MySQL Server
   ansible.builtin.yum:
     name:
-     - mysql-community-server
-     - MySQL-python
+      - mysql-community-server
+      - MySQL-python
     state: installed
 
-- name: Start MYSQL Service
+- name: Start MySQL Service
   ansible.builtin.systemd:
     name: mysqld
     state: restarted
     enabled: yes
 
-- name: Check root default password
+- name: Check Root Default Password
   block:
-    - name: Get MySQL version to check the DB connection
+    - name: Get MySQL version to check the DB Connection
       mysql_info:
         login_user: root
         login_password: "{{MYSQL_PASSWORD}}"
         filter: version
   rescue:
-    - name: Load MYSQL log file
+    - name: Load MYSQL Log File
       ansible.builtin.slurp:
         src: /var/log/mysqld.log
       register: mysql_log
 
     - name: Declare Facts
       ansible.builtin.set_fact:
-        DEFAULT_PASS: "{{mysql_log['content'] | b64decode | regex_findall('.*temporary password.*') | join(' ') | split(' ') | last }}"
+        DEFAULT_PASS: "{{mysql_log['content'] | b64decode | regex_findall('.*temporary password.*') | join(' ') |split(' ') | last }}"
 
     - name: Change MySQL
-      ansible.builtin.shell: echo "alter user 'root'@'localhost' identified by '{{MYSQL_PASSWORD}}';" | mysql --connect-expired-password -uroot -p"{{DEFAULT_PASSWORD}}"
+      ansible.builtin.shell: echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{MYSQL_PASSWORD}}';" | mysql --connect-expired-password -uroot -p"{{DEFAULT_PASS}}"
 
-- name: Check Validate Plugin exists
+- name: Check Validate plugin exists
   ansible.builtin.shell: echo "uninstall plugin validate_password;" | mysql -uroot -p{{MYSQL_PASSWORD}}
   ignore_errors: yes
 
