@@ -1,9 +1,6 @@
-- name: Setup NodeJS repos
-  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-
-- name: install node js
+- name: install Maven
   ansible.builtin.yum:
-    name: nodejs
+    name: maven
     state: installed
 
 - name: Include app-pre-setup
@@ -11,9 +8,9 @@
     name: common
     tasks_from: app-pre-setup
 
-- name: Install NodeJS dependencies
-  community.general.npm:
-    path: /home/roboshop/{{COMPONENT}}
+- name: Install Maven dependencies
+  ansible.builtin.shell: mvn clean package && mv target/{{COMPONENT}}-1.0.jar {{COMPONENT}}.jar
+   path: /home/roboshop/{{COMPONENT}}
   become_user: roboshop
 
 - name: Include SystemD
