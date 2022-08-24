@@ -1,0 +1,23 @@
+- name: install python
+  ansible.builtin.yum:
+    name:
+      - python36
+      - gcc
+      - python3-devel
+    state: installed
+
+- name: Include app-pre-setup
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: app-pre-setup
+
+- name: Install python dependencies
+  ansible.builtin.pip:
+    requirements: /home/roboshop/{{COMPONENTS}}/requirements.txt
+    executable: pip3
+
+
+- name: Include SystemD
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd
