@@ -1,2 +1,3 @@
 COMPONENT: mysql
 APP_TYPE: database
+MYSQL_PASSWORD: {{ lookup('aws_ssm', 'mutable.mysql.dev.MYSQL_PASSWORD', region='us-east-1'  ) }}

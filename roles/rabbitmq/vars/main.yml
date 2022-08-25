@@ -1,2 +1,3 @@
 COMPONENT: rabbitmq
 APP_TYPE: database
+RABBITMQ_PASSWORD: {{ lookup('aws_ssm', 'mutable.rabbitmq.dev.RABBITMQ_PASSWORD', region='us-east-1'  ) }}
