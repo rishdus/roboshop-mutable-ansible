@@ -27,7 +27,7 @@
   hosts: CART
   become: yes
   roles:
-    - CART
+    - cart
 - name: Setup Roboshop
   hosts: MYSQL
   become: yes
