@@ -5,11 +5,12 @@ Description=Payment Service
 User=root
 WorkingDirectory=/home/roboshop/payment
 
-Environment=CART_HOST={{ lookup('aws_ssm', 'mutable.Payment.{{ENV}}.CART_HOST', region='us-east-1' ) }}
-Environment=USER_HOST={{ lookup('aws_ssm', 'mutable.Payment.{{ENV}}.USER_HOST', region='us-east-1' ) }}
-Environment=AMQP_HOST={{ lookup('aws_ssm', 'mutable.Payment.{{ENV}}.AMQP_HOST', region='us-east-1' ) }}
-Environment=AMQP_USER={{ lookup('aws_ssm', 'mutable.Payment.{{ENV}}.AMQP_USER', region='us-east-1' ) }}
-Environment=AMQP_PASS={{ lookup('aws_ssm', 'mutable.Payment.{{ENV}}.AMQP_PASS', region='us-east-1' ) }}
+Environment=CART_HOST={{ lookup('aws_ssm', 'mutable.payment.{{ENV}}.CART_HOST', region='us-east-1' ) }}
+Environment=USER_HOST={{ lookup('aws_ssm', 'mutable.payment.{{ENV}}.USER_HOST', region='us-east-1' ) }}
+Environment=AMQP_HOST={{ lookup('aws_ssm', 'mutable.payment.{{ENV}}.AMQP_HOST', region='us-east-1' ) }}
+Environment=AMQP_USER={{ lookup('aws_ssm', 'mutable.payment.{{ENV}}.AMQP_USER', region='us-east-1' ) }}
+Environment=AMQP_PASS={{ lookup('aws_ssm', 'mutable.payment.{{ENV}}.AMQP_PASS', region='us-east-1' ) }}
+
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 ExecStop=/bin/kill -9 $MAINPID
 SyslogIdentifier=payment
