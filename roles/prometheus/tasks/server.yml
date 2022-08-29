@@ -2,7 +2,7 @@
   ansible.builtin.template:
     src: prometheus.yml
     dest: /opt/prometheus/prometheus.yml
-
+  notify: Restart prometheus
 
 - name: Start prometheus
   ansible.builtin.systemd:
