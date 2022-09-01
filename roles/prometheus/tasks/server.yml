@@ -4,6 +4,12 @@
     dest: /opt/prometheus/prometheus.yml
   notify: Restart prometheus
 
+- name: Copy alert rules
+  ansible.builtin.template:
+    src: alert-rules.yml
+    dest: /opt/prometheus/alert-rules.yml
+  notify: Restart prometheus
+
 - name: Start prometheus
   ansible.builtin.systemd:
     name: prometheus
