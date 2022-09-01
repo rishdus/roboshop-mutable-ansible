@@ -6,9 +6,11 @@ groups:
         for: 1m
         labels:
           severity: critical
-        annotations: {% raw %}
+        annotations:
+       {% raw %}
           summary: "Instance Down - [{{ $labels.instance}}]"
-          description: "Instance Down - [{{ $labels.instance}}]" {% endraw %}
+          description: "Instance Down - [{{ $labels.instance}}]"
+       {% endraw %}
 
 {% for component in COMPONENTS %}
        - alert: Service Down - {{component}}
@@ -16,9 +18,11 @@ groups:
          for: 1m
          labels:
            severity: critical
-         annotations: {% raw %}
+         annotations:
+        {% raw %}
            summary: "Instance Down - [{{ $labels.instance}}]"
-           description: "Instance Down - [{{ $labels.instance}}]" {% endraw %}
+           description: "Instance Down - [{{ $labels.instance}}]"
+        {% endraw %}
 
 
 {% endfor %}
