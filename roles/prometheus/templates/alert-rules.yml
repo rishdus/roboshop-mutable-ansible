@@ -6,19 +6,18 @@ groups:
         for: 1m
         labels:
           severity: critical
-        annotations: {% raw %}
-        summary: "Instance Down - [{{ $labels.instance}}]"
-        description: "Instance Down - [{{ $labels.instance}}]" {% endraw %}
+        annotations:
+          summary: "Instance Down - [{{ $labels.instance}}]"
+          description: "Instance Down - [{{ $labels.instance}}]"
 
 {% for component in COMPONENTS %}
-       - alert: Service Down - {{component}}
-         expr: node_systemd_unit_state{name="{{component}}.service", state="active"} < 1
-         for: 1m
-         labels:
-           severity: critical
-         annotations: {% raw %}
-         summary: "Instance Down - [{{ $labels.instance}}]"
-         description: "Instance Down - [{{ $labels.instance}}]" {% endraw %}
-
+      - alert: Service Down - {{component}}
+        expr: node_systemd_unit_state{name="{{component}}.service", state="active"} < 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance Down - [{{ $labels.instance}}]"
+          description: "Instance Down - [{{ $labels.instance}}]" {
 
 {% endfor %}
