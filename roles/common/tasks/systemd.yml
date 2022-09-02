@@ -1,3 +1,11 @@
+- name: Install PIP Modules
+  ansible.builtin.pip:
+    name: "{{item}}"
+    executable: pip3
+  loop:
+    - botocore
+    - boto3
+
 - name: copy {{COMPONENT}} systemd file
   ansible.builtin.template:
     src: systemd.service
