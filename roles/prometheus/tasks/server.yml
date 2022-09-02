@@ -22,3 +22,20 @@
     delay: 10
     timeout: 30
 
+- name: copy Alert Manager config
+  ansible.builtin.template:
+  src: alertmanager.yml
+  dest: /opt/alertmanager/alertmanager.yml
+
+- name: Restart Alert Manager
+  ansible.builtin.systemd:
+   name: alertmanager
+   state: restarted
+
+- name: Wait for Alertmanager to start
+  ansible.builtin.wait_for:
+    port: 9093
+    delay: 10
+    timeout: 30
+
+
