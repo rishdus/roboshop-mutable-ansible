@@ -1,3 +1,4 @@
 COMPONENT: payment
 APP_TYPE: python
 LOG_FILE: /var/log/payment.log
+LOG_TYPE: raw
