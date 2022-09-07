@@ -8,7 +8,7 @@
     name: filebeat
     state: installed
 
-- name: COpy Filebeat config
+- name: Copy Filebeat config
   ansible.builtin.template:
     src: filebeat
     dest: /etc/filebeat/filebeat.yml
