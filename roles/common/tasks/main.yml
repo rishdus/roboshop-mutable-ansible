@@ -1,5 +1,6 @@
 - name: setup hostname
   ansible.builtin.shell: set-hostname {{COMPONENT}}
+
 - name: Install prometheus node exporter
   ansible.builtin.include_role:
     name: prometheus
@@ -16,3 +17,11 @@
     name: rsyslog
     state: restarted
   when: APP_TYPE == "java" or APP_TYPE == "python" or APP_TYPE == "nodejs" or APP_TYPE == "golang"
+
+- name: Install Ansible SSM Python3 Deps
+  ansible.builtin.pip:
+    name: "{{item}}"
+    executable: pip3
+  loop:
+    - botocore
+    - boto3
