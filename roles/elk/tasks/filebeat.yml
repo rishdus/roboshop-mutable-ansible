@@ -1,4 +1,4 @@
-- name: copy Filebeat YUM repo
+- name: copy Filebeat YUm repo
   ansible.builtin.template:
     src: filebeat.repo
     dest: /etc/yum.repos.d/filebeat.repo
@@ -8,7 +8,7 @@
     name: filebeat
     state: installed
 
-- name: Copy Filebeat config
+- name: COpy Filebeat config
   ansible.builtin.template:
     src: filebeat
     dest: /etc/filebeat/filebeat.yml
